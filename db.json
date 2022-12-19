@@ -1,0 +1,20 @@
+{
+  "contacts": [
+    {
+      "id": 1,
+      "name": "Chris Mafra",
+      "address": [
+        {
+          "street": "",
+          "zipcode": "",
+          "district": "",
+          "city": "",
+          "state": ""
+        }
+      ],
+      "phonenumbers": [
+        "11111111111"
+      ]
+    }
+  ]
+}
