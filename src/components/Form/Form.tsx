@@ -23,11 +23,12 @@ import {
 import { useEffect } from 'react';
 
 interface Props {
-  type: 'edit' | 'create';
+  type: 'edit' | 'create' | 'view';
   id?: number;
 }
 
 export default function Form(props: Props) {
+  const isReadOnly = props.type == 'view';
   const {
     register,
     handleSubmit,
@@ -105,7 +106,7 @@ export default function Form(props: Props) {
     }
   };
   useEffect(() => {
-    if (props.type === 'edit') {
+    if (props.type === 'edit' || props.type === 'view') {
       getContactData();
     }
   }, []);
@@ -121,20 +122,22 @@ export default function Form(props: Props) {
       </Title>
       <FormGroup>
         <Label>Nome</Label>
-        <Input type="text" {...register('name')}></Input>
+        <Input type="text" readOnly={isReadOnly} {...register('name')}></Input>
         <ErrorMessage></ErrorMessage>
       </FormGroup>
       <FormGroup>
         <FormFlex>
           <FieldTitle>Número(s)</FieldTitle>
-          <Button
-            type="button"
-            onClick={() => {
-              phoneAppend({ phone: '' });
-            }}
-          >
-            +
-          </Button>
+          {!isReadOnly && (
+            <Button
+              type="button"
+              onClick={() => {
+                phoneAppend({ phone: '' });
+              }}
+            >
+              +
+            </Button>
+          )}
         </FormFlex>
 
         {phoneFields.map((item, index) => {
@@ -142,10 +145,15 @@ export default function Form(props: Props) {
             <div key={item.id}>
               <Label>Número {index + 1}</Label>
               <FormFlex>
-                <Input {...register(`phonenumbers.${index}.phone`)} />
-                <Button type="button" onClick={() => phoneRemove(index)}>
-                  -
-                </Button>
+                <Input
+                  {...register(`phonenumbers.${index}.phone`)}
+                  readOnly={isReadOnly}
+                />
+                {!isReadOnly && (
+                  <Button type="button" onClick={() => phoneRemove(index)}>
+                    -
+                  </Button>
+                )}
               </FormFlex>
               <ErrorMessage></ErrorMessage>
             </div>
@@ -155,20 +163,22 @@ export default function Form(props: Props) {
       <FormGroup>
         <FormFlex>
           <FieldTitle>Endereço(s)</FieldTitle>
-          <Button
-            type="button"
-            onClick={() => {
-              addressAppend({
-                street: '',
-                zipcode: '',
-                district: '',
-                city: '',
-                state: '',
-              });
-            }}
-          >
-            +
-          </Button>
+          {!isReadOnly && (
+            <Button
+              type="button"
+              onClick={() => {
+                addressAppend({
+                  street: '',
+                  zipcode: '',
+                  district: '',
+                  city: '',
+                  state: '',
+                });
+              }}
+            >
+              +
+            </Button>
+          )}
         </FormFlex>
 
         {addressFields.map((item, index) => {
@@ -177,12 +187,15 @@ export default function Form(props: Props) {
               <Label>CEP</Label>
               <FormFlex>
                 <Input
+                  readOnly={isReadOnly}
                   {...register(`address.${index}.zipcode`)}
                   onBlur={() => setCep(index)}
                 ></Input>
-                <Button type="button" onClick={() => addressRemove(index)}>
-                  -
-                </Button>
+                {!isReadOnly && (
+                  <Button type="button" onClick={() => addressRemove(index)}>
+                    -
+                  </Button>
+                )}
               </FormFlex>
 
               <ErrorMessage></ErrorMessage>
@@ -217,7 +230,7 @@ export default function Form(props: Props) {
         })}
       </FormGroup>
 
-      <Button type="submit">Salvar</Button>
+      {!isReadOnly && <Button type="submit">Salvar</Button>}
     </form>
   );
 }

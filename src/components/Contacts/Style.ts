@@ -18,6 +18,7 @@ width: 100%;
 border-bottom: 1px lightgray solid;
 margin-bottom: .4rem;
 padding-bottom: .4rem;
+cursor: pointer;
 `;
 
 export const Letter = styled.h1`
@@ -25,3 +26,12 @@ font-size: 1.2rem;
 font-weight: 600;
 color: blue;
 `;
+
+export const EditButton = styled.button`
+color:blue;
+margin-right:1.2rem
+`
+export const DeleteButton = styled.button`
+color:red;
+`
+

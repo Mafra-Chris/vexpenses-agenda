@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Header = styled.header`
 text-align: center;
-margin-bottom: 1rem;
 `;
 export const Title = styled.h1`
 font-size: 2rem;
@@ -32,5 +31,31 @@ border-radius: 0.5rem;
 padding: 0.2rem 1rem;
 background-color: blue;
 color:white;
+font-weight: 600;
+border: solid 1px blue;
+`
+export const ButtonSecondary = styled.button`
+border-radius: 0.5rem;
+padding: 0.2rem 1rem;
+background-color: none;
+border: solid 1px blue;
+
 font-weight: 600
+`
+
+export const ModalButtons = styled.div`
+display:flex;
+justify-content:center;
+gap: 1.2rem;
+margin-top: 2rem;
+`
+
+export const ModalTitle = styled.div`
+text-align:center;
+font-weight: 600;
+font-size: 1.2rem;
+`
+
+export const List = styled.ol`
+margin-top:1rem;
 `

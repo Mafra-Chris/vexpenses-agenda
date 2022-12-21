@@ -37,7 +37,6 @@ function App() {
         <AddContact onClick={openModal}>
           <FontAwesomeIcon icon={faUserPlus} /> Adicionar contato
         </AddContact>
-        <Input type="text" placeholder="Buscar contato" />
       </Header>
       <Contacts></Contacts>
     </AppContainer>
