@@ -2,7 +2,7 @@ export interface Contact {
   id?: number,
   name: string,
   address: Array<Address>
-  phonenumbers: Array<string>
+  phonenumbers: Array<{ phone: string }>
 }
 
 export interface Address {

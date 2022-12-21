@@ -1,36 +1,46 @@
-import { useEffect, useState } from 'react';
-import reactLogo from './assets/react.svg';
-import './App.css';
-import { getAddress } from './services/cepApi';
-import { getContact, getContacts, postContact } from './services/contactsApi';
-
+import Contacts from './components/Contacts/Contacts';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { Header, AppContainer, Title, AddContact, Input } from './GlobalStyle';
+import Modal from 'react-modal';
+import { useState } from 'react';
+import Form from './components/Form/Form';
 function App() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {}, []);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const modalStyles = {
+    overlay: {
+      backgroundColor: 'rgb(37 37 37 / 75%)',
+    },
+    content: {
+      inset: '20px',
+    },
+  };
+  function openModal() {
+    setIsOpen(true);
+  }
+  function closeModal() {
+    setIsOpen(false);
+  }
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <AppContainer id="App" className="App">
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Add contact modal"
+        style={modalStyles}
+        ariaHideApp={false}
+      >
+        <Form type="create"></Form>
+      </Modal>
+      <Header>
+        <Title>Agenda</Title>
+        <AddContact onClick={openModal}>
+          <FontAwesomeIcon icon={faUserPlus} /> Adicionar contato
+        </AddContact>
+        <Input type="text" placeholder="Buscar contato" />
+      </Header>
+      <Contacts></Contacts>
+    </AppContainer>
   );
 }
 
